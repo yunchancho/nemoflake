@@ -1,20 +1,24 @@
-## Card Theme Application
-Card Theme app provides different look & feels to users just by changing json configuration.
-This app will be aim to support customizable card interaction and animation.
+## Nemo Flake 
+Nemo Flake is an application which lets small content object be placed as card or floating style layout.
+Using this, you can provide different look & feels to users just by changing json configuration.
+This project has been started by forking https://github.com/nemoux/nemocard
 
-This app consists of components using awesome library like react, redux, styled-components.
+This app aims to support customizable layout, interaction and animation.
+This app consists of components using awesome library like the followings.
+So you can use this project as entry point of learning them.
+
+ - react
+ - redux
+ - styled-components
+ - react-dnd
+
 This app is under the heavy development.
 We welcome you to develop this app.
 
-### npm commands
+### running on browser
 You can simply launch this app on your web browser by the following.
 
-$ npm install (for preparation)
-
-$ npm start (for development)
-
-$ npm test (for verifying features)
-
+$ npm start 
 $ npm run build (for production)
 
 ### running on electron
@@ -25,11 +29,4 @@ $ npm run start-electron
 
 If react code is changed, just run 2nd command again.
 
-### Trouble Shootings
-If you have errors regarding watchers during 'npm test', try the following.
-Increasing the limit of inotify watchers solves that problem.
-
-```js
-# echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
-# sudo sysctl -p
-```
+Happy Coding!
