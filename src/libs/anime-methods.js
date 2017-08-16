@@ -5,7 +5,7 @@ import anime from 'animejs';
 export function enterSample1(flake, metadata = {}, finishCallback) {
   anime({
     targets: flake,
-    translateX: function(el) {
+    translateX: function(el, i) {
       return anime.random(-500, 500);
     },
     translateY: function(el, i) {
@@ -15,11 +15,11 @@ export function enterSample1(flake, metadata = {}, finishCallback) {
       return anime.random(0.7, 2.0);
     },
     rotate: function(el, i) {
-      return anime.random(-1000, 1000);
+      return anime.random(0, 0);
     },
     duration: function() { return anime.random(1200, 1800); },
     duration: function() { return anime.random(800, 1600); },
-    delay: function() { return anime.random(0, 1000); },
+    delay: function() { return 500 + anime.random(0, 1000); },
     direction: metadata.direction | 'alternate', 
     loop: metadata.loop | 1
   });

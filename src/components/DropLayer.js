@@ -35,7 +35,8 @@ class DropLayer extends React.Component {
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0
+      bottom: 0,
+      backgroundColor: 'transparent'
     };
     return connectDropTarget(
       <div style={style} />

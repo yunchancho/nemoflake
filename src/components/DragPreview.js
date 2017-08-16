@@ -2,31 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragItemTypes } from './Interactable';
 import { DragLayer } from 'react-dnd';
+import { injectGlobal } from 'styled-components';
 
-const layerStyles = {
-  position: 'fixed',
-  zIndex: 100,
-  left: 0,
-  top: 0
-};
+// TODO if you define transform feature here using styled-components,
+// it doesn't work well. All element using this are positioned (0, 0)
+injectGlobal`
+  @keyframes preview-effect-alpha {
+    from { opacity: 1.0; }
+    to { opacity: 0.3; }
+  }
+`;
 
 function getItemStyles(props) {
-  const { currentOffset } = props;
+  const { currentOffset, currentOffsetDiff } = props;
+  const { geometry } = props.item;
   if (!currentOffset) {
     return {
       display: 'none'
     };
   }
 
-  const { x, y } = currentOffset;
-  const transform = `translate(${x}px, ${y}px)`;
+  const { x, y } = currentOffsetDiff;
+  const transform = `translate(${geometry.left + x}px, ${geometry.top + y}px)`;
   return {
     position: 'fixed',
     left: 0,
     top: 0,
-    opacity: 0.5,
-    backgroundColor: 'yellow',
-    transform: transform
+    opacity: 0.7,
+    backgroundColor: 'transparent',
+    width: geometry.width,
+    height: geometry.height,
+    transform: transform,
+    animation: 'preview-effect-alpha 500ms ease-in-out infinite alternate'
   };
 }
 
@@ -35,6 +42,7 @@ function collect(monitor) {
     item: monitor.getItem(),
     itemType: monitor.getItemType(),
     currentOffset: monitor.getSourceClientOffset(),
+    currentOffsetDiff: monitor.getDifferenceFromInitialOffset(),
     isDragging: monitor.isDragging()
   };
 }
@@ -46,12 +54,15 @@ class CustomDragLayer extends React.Component {
       return null;
     }
 
+    const previewStyle = {
+      width: '100%'
+    };
      
     let previewContent = item.id;
     if (item.preview.type === 'image') {
-      previewContent = <img src={item.preview.src} width="100%" />
+      previewContent = <img src={item.preview.src} style={previewStyle} />
     } else if (item.preview.type === 'video') {
-      previewContent = <video src={item.preview.src} width="100%" loop autoPlay />
+      previewContent = <video src={item.preview.src}  style={previewStyle} loop autoPlay />
     } else {
       console.error('not supported type: ', item.preview.type);
     } 

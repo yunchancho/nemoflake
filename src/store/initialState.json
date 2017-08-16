@@ -146,6 +146,37 @@
 					"resize": false
 				}
       }
+    },
+    {
+      "id": 4,
+      "style": {
+         "opacity": 1.0
+      },
+      "preview": {
+        "type": "image",
+        "src": "http://localhost:7000/cards/square_05.png"
+      },
+      "contents": [
+        {
+          "type": "image",
+          "src": "http://localhost:7000/cards/square_05.png",
+          "id": 0
+        }
+      ],
+      "link": {
+        "type": "url",
+        "value": "http://github.com"
+      },
+			"action": {
+				"type": "app",
+				"path": "/usr/bin/electron",
+				"param": {
+					"#optind": "https://github.com"
+				},
+				"state": {
+					"resize": false
+				}
+      }
     }
   ],
   "backgrounds": [

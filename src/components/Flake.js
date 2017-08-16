@@ -12,9 +12,12 @@ const option = {
   spec: {
     beginDrag(props, monitor, component) {
       console.log('begin drag!')
-      // TODO we need to pass transformed element's data, 
-      // so that DragPreview makes its preview transform properly.
-      return { ...props.item };
+      // TODO sometimes getBoundingClientRect doesn't get proper size of element
+      // in case of transform with rotation. Why? 
+      // And we need to pass current angle of element.
+      const afElement = ReactDOM.findDOMNode(component.af);
+      const geometry = afElement.getBoundingClientRect();
+      return { ...props.item, geometry };
     },
     endDrag(props, monitor) {
       console.log('end drag!');
@@ -57,7 +60,7 @@ class Flake extends React.Component {
     return connectDragSource(
       <div>
         <ReactTransitionGroup key="AnimatedFlake" component='div'>
-          <AnimatedFlake {...this.props} />
+          <AnimatedFlake ref={af => this.af = af} {...this.props} />
         </ReactTransitionGroup>
       </div>
     );
