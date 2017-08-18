@@ -8,8 +8,8 @@ import { injectGlobal } from 'styled-components';
 // it doesn't work well. All element using this are positioned (0, 0)
 injectGlobal`
   @keyframes preview-effect-alpha {
-    from { opacity: 1.0; }
-    to { opacity: 0.3; }
+    from { opacity: 1.0; transform:scale(1.1)}
+    to { opacity: 0.3; transform:scale(0.9)}
   }
 `;
 
@@ -23,16 +23,16 @@ function getItemStyles(props) {
   }
 
   const { x, y } = currentOffsetDiff;
-  const transform = `translate(${geometry.left + x}px, ${geometry.top + y}px)`;
+  let moveX = geometry.left + x;
+  let moveY = geometry.top + y;
   return {
     position: 'fixed',
-    left: 0,
-    top: 0,
+    left: moveX,
+    top: moveY,
     opacity: 0.7,
     backgroundColor: 'transparent',
     width: geometry.width,
     height: geometry.height,
-    transform: transform,
     animation: 'preview-effect-alpha 500ms ease-in-out infinite alternate'
   };
 }
@@ -57,7 +57,7 @@ class CustomDragLayer extends React.Component {
     const previewStyle = {
       width: '100%'
     };
-     
+
     let previewContent = item.id;
     if (item.preview.type === 'image') {
       previewContent = <img src={item.preview.src} style={previewStyle} />
@@ -65,7 +65,7 @@ class CustomDragLayer extends React.Component {
       previewContent = <video src={item.preview.src}  style={previewStyle} loop autoPlay />
     } else {
       console.error('not supported type: ', item.preview.type);
-    } 
+    }
 
     return (
       <div style={getItemStyles(this.props)}>
