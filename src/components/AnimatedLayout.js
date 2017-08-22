@@ -19,6 +19,12 @@ class AnimatedLayout extends React.Component {
     console.log('will appear');
     animeMethods.enterSample1(this.flakeElements, {}, callback);
   } 
+
+  componentDidAppear() {
+    console.log('did appear');
+    animeMethods.enterSample2(this.flakeElements);
+  } 
+
   componentWillEnter(callback) {
     console.log('will enter');
     animeMethods.enterSample1(this.flakeElements, {}, callback);
